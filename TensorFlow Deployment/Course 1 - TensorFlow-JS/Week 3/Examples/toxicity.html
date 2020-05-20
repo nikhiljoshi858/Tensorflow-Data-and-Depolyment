@@ -1,0 +1,27 @@
+<html>
+<head>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/toxicity"></script>
+<script>
+const threshold = 0.9;
+var answer = true;
+toxicity.load(threshold).then(model => {
+    const sentences = ['perfect'];
+    model.classify(sentences).then(predictions => {
+        console.log(predictions);
+        for(i=0; i<7; i++){
+            if(predictions[i].results[0].match){
+                alert(predictions[i].label + " was found with probability of " + predictions[i].results[0].probabilities[1]);                
+                answer = false;
+            }
+        }
+        if(answer)
+        {
+            alert('The sentence is not toxic!!')
+        }
+    });
+});
+</script> 
+</head>
+<body></body>
+</html>    
